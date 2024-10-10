@@ -84,6 +84,8 @@
 ;; (add-hook 'text-mode-hook 'background-image-mode)
 ;; (add-hook 'org-mode-hook 'background-image-mode)
 ;; LSP Mode for TypeScript
+(setq auth-sources '("~/.authinfo"))
+
 (setq doom-theme 'doom-gruvbox-light)
 ;; Function to switch to doom-pine theme in visual mode
 ;; (defun my/evil-visual-mode-hook ()
@@ -96,14 +98,25 @@
 ;; ;; Add hooks to change theme on entering/exiting visual mode
 ;; (add-hook 'evil-visual-state-entry-hook 'my/evil-visual-mode-hook)
 ;; (add-hook 'evil-normal-state-entry-hook 'my/evil-normal-mode-hook)
+(after! evil
+  ;; Define \ as a prefix key in Normal mode
+  (define-prefix-command 'my-backslash-prefix)
+  (define-key evil-normal-state-map (kbd "\\") 'my-backslash-prefix)
 
+  ;; Example key bindings under the \ prefix
+  (define-key my-backslash-prefix (kbd "a") 'execute-extended-command) ;; \ a for M-x
+  (define-key my-backslash-prefix (kbd "b") 'switch-to-buffer)         ;; \ b for buffer switch
+  (define-key my-backslash-prefix (kbd "r") 'evil-redo)         ;; \ b for buffer switch
+  (define-key my-backslash-prefix (kbd "o") 'better-jumper-jump-backward)         ;; \ b for buffer switch
+  ;; Add other bindings as needed
+)
 
 (use-package! key-chord
   :defer t
   :config
   (key-chord-mode 1)
   ;; Set up the key chord with a 0.2-second delay
-  ;; (setq key-chord-two-keys-delay 0.1)
+  (setq key-chord-two-keys-delay 0.2)
   ;; Map 'jk' to escape
   (key-chord-define-global "jk" 'evil-normal-state))
 (use-package lsp-mode
@@ -261,7 +274,7 @@
 
 (defadvice! prompt-for-buffer (&rest _)
   :after '(evil-window-split evil-window-vsplit)
-  (consult-buffer))
+  (projectile-find-file))
 
 
 ;; (after! consult
