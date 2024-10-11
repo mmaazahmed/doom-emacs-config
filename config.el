@@ -86,7 +86,7 @@
 ;; LSP Mode for TypeScript
 (setq auth-sources '("~/.authinfo"))
 
-(setq doom-theme 'doom-gruvbox-light)
+(setq doom-theme 'doom-moonlight)
 ;; Function to switch to doom-pine theme in visual mode
 ;; (defun my/evil-visual-mode-hook ()
 ;;   (load-theme 'doom-pine t))
