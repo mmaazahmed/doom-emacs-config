@@ -292,36 +292,11 @@
         centaur-tabs-set-bar 'above
         centaur-tabs-gray-out-icons 'buffer)
   (centaur-tabs-change-fonts "P22 Underground Book" 160))
-;; (defun my-evil-state-full-name ()
-;;   "Return the full name of the current evil state."
-;;   (pcase evil-state
-;;     ('N "Normal")
-;;     ('insert "Insert")
-;;     ('visual "Visual")
-;;     ('emacs "Emacs")
-;;     ('replace "Replace")
-;;     ('motion "Motion")
-;;     ('operator "Operator")
-;;     (_ (capitalize (symbol-name evil-state)))))
 
-
-;; (setq doom-modeline-evil-visual-state 'visual)
-;; (use-package! doom-modeline
-;;   :config
-  ;; (setq doom-modeline-modal-icon t ) ; Disable icons for the Evil state
-;;   (add-hook 'doom-modeline-mode-hook
-;;             (lambda (i)
-;;               (setq doom-modeline--modal
-;;                     '((:eval (my-evil-state-full-name)))))))
-;; (setq powerline-arrow-shape 'curve)
-  ;; '(:eval (cond
-  ;;      (( eq evil-state 'visual) "V")
-  ;;      (( eq evil-state 'normal) "N")
-  ;;      (( eq evil-state 'insert) "I")
-  ;;      (t "*")) q)
 (setq evil-normal-state-tag   (propertize "Normal" 'face '((:background "green" :foreground "black")))
       evil-emacs-state-tag    (propertize "Emacs" 'face '((:background "orange" :foreground "black")))
       evil-insert-state-tag   (propertize "Insert" 'face '((:background "red") :foreground "white"))
       evil-motion-state-tag   (propertize "Motion" 'face '((:background "black") :foreground "white"))
       evil-visual-state-tag   (propertize "Visual" 'face '((:background "grey80" :foreground "black")))
       evil-operator-state-tag (propertize "Operator" 'face '((:background "purple"))))
+(setq doom-modeline-modal-icon nil)
