@@ -293,10 +293,56 @@
         centaur-tabs-gray-out-icons 'buffer)
   (centaur-tabs-change-fonts "P22 Underground Book" 160))
 
-(setq evil-normal-state-tag   (propertize "Normal" 'face '((:background "green" :foreground "black")))
-      evil-emacs-state-tag    (propertize "Emacs" 'face '((:background "orange" :foreground "black")))
-      evil-insert-state-tag   (propertize "Insert" 'face '((:background "red") :foreground "white"))
-      evil-motion-state-tag   (propertize "Motion" 'face '((:background "black") :foreground "white"))
-      evil-visual-state-tag   (propertize "Visual" 'face '((:background "grey80" :foreground "black")))
-      evil-operator-state-tag (propertize "Operator" 'face '((:background "purple"))))
+;; (setq evil-normal-state-tag   (propertize "Normal" 'face '((:background "green" :foreground "black")))
+;;       evil-emacs-state-tag    (propertize "Emacs" 'face '((:background "orange" :foreground "black")))
+;;       evil-insert-state-tag   (propertize "Insert" 'face '((:background "red") :foreground "white"))
+;;       evil-motion-state-tag   (propertize "Motion" 'face '((:background "black") :foreground "white"))
+;;       evil-visual-state-tag   (propertize "Visual" 'face '((:background "grey80" :foreground "black")))
+;;       evil-operator-state-tag (propertize "Operator" 'face '((:background "purple"))))
 (setq doom-modeline-modal-icon nil)
+(defface doom-modeline-evil-normal
+  '((t (:background "green" :foreground "black" :weight bold)))
+  "Face for Evil normal state in the mode line."
+  :group 'doom-modeline)
+
+(defface doom-modeline-evil-emacs
+  '((t (:background "orange" :foreground "black" :weight bold)))
+  "Face for Evil emacs state in the mode line."
+  :group 'doom-modeline)
+
+(defface doom-modeline-evil-insert
+  '((t (:background "red" :foreground "white" :weight bold)))
+  "Face for Evil insert state in the mode line."
+  :group 'doom-modeline)
+
+(defface doom-modeline-evil-visual
+  '((t (:background "grey80" :foreground "black" :weight bold)))
+  "Face for Evil visual state in the mode line."
+  :group 'doom-modeline)
+
+(defface doom-modeline-evil-motion
+  '((t (:background "black" :foreground "white" :weight bold)))
+  "Face for Evil motion state in the mode line."
+  :group 'doom-modeline)
+
+(defface doom-modeline-evil-operator
+  '((t (:background "purple" :foreground "white" :weight bold)))
+  "Face for Evil operator state in the mode line."
+  :group 'doom-modeline)
+
+(setq evil-normal-state-tag   (propertize " NORMAL " 'face 'doom-modeline-evil-normal)
+      evil-emacs-state-tag    (propertize " EMACS " 'face 'doom-modeline-evil-emacs)
+      evil-insert-state-tag   (propertize " INSERT " 'face 'doom-modeline-evil-insert)
+      evil-motion-state-tag   (propertize " MOTION " 'face 'doom-modeline-evil-motion)
+      evil-visual-state-tag   (propertize " VISUAL " 'face 'doom-modeline-evil-visual)
+      evil-operator-state-tag (propertize " OPERATOR " 'face 'doom-modeline-evil-operator))
+
+(defun setup-doom-modeline-evil-states () ;; setting up colors
+  (set-face-attribute 'doom-modeline-evil-normal-state nil   :background "green"  :foreground "black")
+  (set-face-attribute 'doom-modeline-evil-emacs-state nil    :background "orange" :foreground "black")
+  (set-face-attribute 'doom-modeline-evil-insert-state nil   :background "red"    :foreground "white")
+  (set-face-attribute 'doom-modeline-evil-motion-state nil   :background "blue"   :foreground "white")
+  (set-face-attribute 'doom-modeline-evil-visual-state nil   :background "gray80" :foreground "black")
+  (set-face-attribute 'doom-modeline-evil-operator-state nil :background "purple"))
+
+(add-hook 'doom-modeline-mode-hook 'setup-doom-modeline-evil-states)
