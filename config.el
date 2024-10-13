@@ -330,12 +330,12 @@
   "Face for Evil operator state in the mode line."
   :group 'doom-modeline)
 
-(setq evil-normal-state-tag   (propertize " NORMAL " 'face 'doom-modeline-evil-normal)
-      evil-emacs-state-tag    (propertize " EMACS " 'face 'doom-modeline-evil-emacs)
-      evil-insert-state-tag   (propertize " INSERT " 'face 'doom-modeline-evil-insert)
-      evil-motion-state-tag   (propertize " MOTION " 'face 'doom-modeline-evil-motion)
-      evil-visual-state-tag   (propertize " VISUAL " 'face 'doom-modeline-evil-visual)
-      evil-operator-state-tag (propertize " OPERATOR " 'face 'doom-modeline-evil-operator))
+(setq evil-normal-state-tag   (propertize " NORMAL ➤ " 'face 'doom-modeline-evil-normal)
+      evil-emacs-state-tag    (propertize " EMACS ➤ " 'face 'doom-modeline-evil-emacs)
+      evil-insert-state-tag   (propertize " INSERT ➤ " 'face 'doom-modeline-evil-insert)
+      evil-motion-state-tag   (propertize " MOTION ➤ " 'face 'doom-modeline-evil-motion)
+      evil-visual-state-tag   (propertize " VISUAL ➤ " 'face 'doom-modeline-evil-visual)
+      evil-operator-state-tag (propertize " OPERATOR ➤ " 'face 'doom-modeline-evil-operator))
 
 (defun setup-doom-modeline-evil-states () ;; setting up colors
   (set-face-attribute 'doom-modeline-evil-normal-state nil   :background "green"  :foreground "black")
