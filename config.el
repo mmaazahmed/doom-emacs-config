@@ -84,8 +84,11 @@
 ;; (add-hook 'text-mode-hook 'background-image-mode)
 ;; (add-hook 'org-mode-hook 'background-image-mode)
 ;; LSP Mode for TypeScript
-(setq auth-sources '("~/.authinfo"))
+;; (setq treesit-extra-load-path '("/.emacs.d/.local/straight/build-29.4/tree-sitter-langs/bin"))
 
+  ;; /home/mmaazahmed/.emacs.d/.local/straight/build-29.4/tree-sitter-langs/bin:
+(setq auth-sources '("~/.authinfo"))
+(add-hook 'window-setup-hook #'doom-big-font-mode)
 (setq doom-theme 'doom-moonlight)
 ;; Function to switch to doom-pine theme in visual mode
 ;; (defun my/evil-visual-mode-hook ()
