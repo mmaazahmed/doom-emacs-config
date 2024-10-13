@@ -3,8 +3,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(doom-modeline-modal-icon nil)
  '(package-selected-packages
-   '(rg ripgrep lsp-treemacs ivy-avy lsp-ivy tree-sitter lsp-mode tsc typescript-mode)))
+   '(multi-web-mode web-mode code-review rg ripgrep lsp-treemacs ivy-avy lsp-ivy tree-sitter lsp-mode tsc typescript-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
