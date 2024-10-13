@@ -134,13 +134,23 @@
 
 (use-package typescript-mode
   :ensure t
-  :mode ("\\.ts\\'" "\\.tsx\\'")
+  :mode ("\\.ts\\'")
   :hook ((typescript-mode . flycheck-mode)
          (typescript-mode . eldoc-mode)
          (typescript-mode . smartparens-mode))
   :custom
   (typescript-indent-level 2)
   :delight "ts")
+
+(use-package tsx-ts-mode
+  :ensure nil  ; It's a built-in mode if tree-sitter is enabled in Emacs
+  :mode ("\\.tsx\\'")  ; Use only for .tsx files
+  :hook ((tsx-ts-mode . lsp-deferred)
+         (tsx-ts-mode . flycheck-mode)
+         (tsx-ts-mode . smartparens-mode))
+  :custom
+  (lsp-headerline-breadcrumb-enable nil)
+  :delight "tsx-ts")
 
 (use-package flycheck
   :ensure t
