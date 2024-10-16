@@ -89,7 +89,7 @@
   ;; /home/mmaazahmed/.emacs.d/.local/straight/build-29.4/tree-sitter-langs/bin:
 (setq auth-sources '("~/.authinfo"))
 (add-hook 'window-setup-hook #'doom-big-font-mode)
-(setq doom-theme 'doom-moonlight)
+(setq doom-theme 'doom-oceanic-next)
 ;; Function to switch to doom-pine theme in visual mode
 ;; (defun my/evil-visual-mode-hook ()
 ;;   (load-theme 'doom-pine t))
@@ -114,6 +114,30 @@
   ;; Add other bindings as needed
 )
 
+;;getting transparent on terminal start up
+(defun on-after-init ()
+  (unless (display-graphic-p (selected-frame))
+    (set-face-background 'default "unspecified-bg" (selected-frame))))
+(add-hook 'window-setup-hook 'on-after-init)
+
+;; fx cursor in terminal
+(use-package! evil-terminal-cursor-changer
+  :hook (tty-setup . evil-terminal-cursor-changer-activate))
+;; (set-face-background 'default nil)
+
+
+;; --- for transparent in guii--
+;; (set-frame-parameter nil 'alpha-background 36)
+;; (add-to-list 'default-frame-alist '(alpha-background . 36))
+
+;; (add-to-list 'treesit-language-source-alist
+;;              '(html "https://github.com/tree-sitter/tree-sitter-html.git"))
+;; (add-to-list 'treesit-language-source-alist
+;;              '(bash "https://github.com/tree-sitter/tree-sitter-bash.git"))
+;; (add-to-list 'treesit-language-source-alist
+;;              '(typescript "https://github.com/tree-sitter/tree-sitter-typescript.git"))
+;; (add-to-list 'treesit-language-source-alist
+;;              '(css "https://github.com/tree-sitter/tree-sitter-css.git"))
 (use-package! key-chord
   :defer t
   :config
@@ -359,3 +383,27 @@
   (set-face-attribute 'doom-modeline-evil-operator-state nil :background "purple"))
 
 (add-hook 'doom-modeline-mode-hook 'setup-doom-modeline-evil-states)
+
+
+;; (defun my-load-svg-separator (file)
+;;   "Load an SVG file as an image."
+;;   (create-image file 'png nil))
+;; (use-package doom-modeline
+;;   :init
+;;   (doom-modeline-init)
+;;   :config
+;;   ;; Set up the SVG separator
+;;   (setq doom-modeline-icon t) ; Show icons
+;;   (setq doom-modeline-major-mode-icon t) ; Show major mode icon
+
+;;   ;; Add the SVG separator
+;;   (setq doom-modeline-bar-width 3)
+;;   (setq-default mode-line-format
+;;                 (list
+;;                  ;; Other elements can be added here
+;;                  (my-load-svg-separator "/misc/separator.svg")
+;;                  " "
+;;                  "%b" ;; buffer name
+;;                  " "
+;;                  ;; More elements can be added here
+;;                  )))
