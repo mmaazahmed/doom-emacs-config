@@ -110,6 +110,8 @@
   (define-key my-backslash-prefix (kbd "a") 'execute-extended-command) ;; \ a for M-x
   (define-key my-backslash-prefix (kbd "b") 'switch-to-buffer)         ;; \ b for buffer switch
   (define-key my-backslash-prefix (kbd "r") 'evil-redo)         ;; \ b for buffer switch
+
+  (define-key my-backslash-prefix (kbd "t") '+toggle-vterm)         ;; \ b for buffer switch
   (define-key my-backslash-prefix (kbd "o") 'better-jumper-jump-backward)         ;; \ b for buffer switch
   ;; Add other bindings as needed
 )
