@@ -182,7 +182,8 @@
   :delight "tsx-ts")
 
 (use-package vterm
-  :load-path  "~/emacs-libvterm/build")
+  :load-path "~/emacs-libvterm/build"
+  :commands vterm)
 (use-package flycheck
   :ensure t
   :hook (typescript-mode . flycheck-mode)
