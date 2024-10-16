@@ -57,3 +57,7 @@
 
 
 (package! key-chord)
+
+    (package! solaire-global-mode :disable t)
+(package! evil-terminal-cursor-changer)
+(package! xclip)
