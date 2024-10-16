@@ -89,7 +89,7 @@
   ;; /home/mmaazahmed/.emacs.d/.local/straight/build-29.4/tree-sitter-langs/bin:
 (setq auth-sources '("~/.authinfo"))
 (add-hook 'window-setup-hook #'doom-big-font-mode)
-(setq doom-theme 'doom-spacegrey)
+(setq doom-theme 'doom-nord)
 ;; Function to switch to doom-pine theme in visual mode
 ;; (defun my/evil-visual-mode-hook ()
 ;;   (load-theme 'doom-pine t))
@@ -119,6 +119,36 @@
 ;;getting transparent on terminal start up
 (defun on-after-init ()
   (unless (display-graphic-p (selected-frame))
+;; Normal mode: Set cursor color to green
+  (add-hook 'evil-normal-state-entry-hook
+            (lambda () (send-string-to-terminal "\033]12;green\a")))
+  ;; Emacs state (if applicable): Set cursor color to orange
+  (add-hook 'evil-emacs-state-entry-hook
+            (lambda () (send-string-to-terminal "\033]12;orange\a")))
+ (add-hook 'evil-insert-state-entry-hook
+            (lambda ()
+              (send-string-to-terminal "\033]12;red\a")
+              (send-string-to-terminal "\033[5 q"))) ;; Change to bar cursor
+  ;; Insert mode exit (to normal mode): Set cursor color to green and block shape
+  (add-hook 'evil-insert-state-exit-hook
+            (lambda ()
+              (send-string-to-terminal "\033]12;green\a")
+              (send-string-to-terminal "\033[2 q"))) ;; Change to block cursor
+  ;; Motion mode: Set cursor color to blue
+  (add-hook 'evil-motion-state-entry-hook
+            (lambda () (send-string-to-terminal "\033]12;blue\a")))
+  ;; Visual mode: Set cursor color to gray80
+  (add-hook 'evil-visual-state-entry-hook
+            (lambda () (send-string-to-terminal "\033]12;gray80\a")))
+  ;; Visual mode exit (back to normal mode): Set cursor color to green
+  (add-hook 'evil-visual-state-exit-hook
+            (lambda () (send-string-to-terminal "\033]12;green\a")))
+  ;; Operator mode: Set cursor color to purple
+  (add-hook 'evil-operator-state-entry-hook
+            (lambda () (send-string-to-terminal "\033]12;purple\a")))
+  ;; Operator mode exit (back to normal mode): Set cursor color to green
+  (add-hook 'evil-operator-state-exit-hook
+            (lambda () (send-string-to-termiinal "\033]12;green\a")))
     (set-face-background 'default "unspecified-bg" (selected-frame))))
 (add-hook 'window-setup-hook 'on-after-init)
 
@@ -260,10 +290,6 @@
 ;; (map! :leader
 ;;       :desc "Search for CSS class" "c s" #'my-search-for-css-class)
 
-
-
-(add-hook 'evil-insert-state-entry-hook (lambda () (send-string-to-terminal "\033[5 q")))
-(add-hook 'evil-insert-state-exit-hook  (lambda () (send-string-to-terminal "\033[2 q")))
 
 
 
