@@ -89,7 +89,7 @@
   ;; /home/mmaazahmed/.emacs.d/.local/straight/build-29.4/tree-sitter-langs/bin:
 (setq auth-sources '("~/.authinfo"))
 (add-hook 'window-setup-hook #'doom-big-font-mode)
-(setq doom-theme 'doom-oceanic-next)
+(setq doom-theme 'doom-spacegrey)
 ;; Function to switch to doom-pine theme in visual mode
 ;; (defun my/evil-visual-mode-hook ()
 ;;   (load-theme 'doom-pine t))
@@ -179,6 +179,8 @@
   (lsp-headerline-breadcrumb-enable nil)
   :delight "tsx-ts")
 
+(use-package vterm
+  :load-path  "~/emacs-libvterm/build")
 (use-package flycheck
   :ensure t
   :hook (typescript-mode . flycheck-mode)
@@ -407,3 +409,14 @@
 ;;                  " "
 ;;                  ;; More elements can be added here
 ;;                  )))
+(defun +toggle-vterm ()
+  "Toggle the vterm instance."
+  (interactive)
+  (if (get-buffer "*vterm*")
+      (if (and (eq (selected-window) (get-buffer-window "*vterm*"))
+               (get-buffer-window "*vterm*"))
+          (delete-window (get-buffer-window "*vterm*"))
+        (switch-to-buffer "*vterm*"))
+    (vterm)))
+(map! :leader
+      "0" #'+toggle-vterm) ;; This binds SPC 0 to toggle vterm)
