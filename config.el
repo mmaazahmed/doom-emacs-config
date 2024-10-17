@@ -160,12 +160,6 @@
 (defun exit-operator-state ()
   ;; (print "exiting operator state")
   (set-cursor-appearance "green" "block" nil))
-;; (unless (display-graphic-p)
-;;
-;;   ;; Hook functions for different states
-;;
-;;   ;; Add hooks for different modes
-;; )
 ;;getting transparent on terminal start up
 (defun on-after-init ()
   (unless (display-graphic-p (selected-frame))
