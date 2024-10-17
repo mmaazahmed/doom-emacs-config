@@ -101,6 +101,23 @@
 ;; ;; Add hooks to change theme on entering/exiting visual mode
 ;; (add-hook 'evil-visual-state-entry-hook 'my/evil-visual-mode-hook)
 ;; (add-hook 'evil-normal-state-entry-hook 'my/evil-normal-mode-hook)
+(after! lsp-ui
+  (setq lsp-ui-doc-show-with-cursor t
+        lsp-ui-doc-delay 0.5
+        lsp-ui-doc-use-webkit nil) ; Make sure it's not using webkit rendering
+
+  ;; Set up the border for the lsp-ui-doc posframe
+  (custom-set-faces
+   '(lsp-ui-doc-background ((t (:background "#1e1e1e")))) ; Adjust background color if needed
+   '(lsp-ui-doc-border ((t (:background "#ffffff")))) ; Set border color
+   )
+
+  ;; Adjust posframe border width
+  (setq lsp-ui-doc-frame-parameters
+        '((left-fringe . 8)
+          (right-fringe . 8)
+          (internal-border-width . 2))) ; Sets border width for the popup
+  )
 (after! evil
   ;; Define \ as a prefix key in Normal mode
   (define-prefix-command 'my-backslash-prefix)
