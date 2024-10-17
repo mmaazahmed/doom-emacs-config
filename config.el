@@ -122,33 +122,43 @@
          (send-string-to-terminal "\033[?12h"))   ;; Enable blinking
        (unless blink
          (send-string-to-terminal "\033[?12l"))   ;; Disable blinking
-       (send-string-to-terminal (format "\033]12;%s\a" color)) ;; Set cursor color
+                ( send-string-to-terminal (format "\033]12;%s\a" color)) ;; Set cursor color
        (send-string-to-terminal (if (string= shape "bar") "\033[5 q" "\033[2 q"))) ;; Set cursor shape
 (defun enter-normal-state ()
+  ;; (print "entering normal state")
   (set-cursor-appearance "green" "block" t))
 
 (defun enter-insert-state ()
+  ;; (print "entering intert state")
   (set-cursor-appearance "red" "bar" t))
 
 (defun enter-emacs-state ()
+  ;; (print "entering emacs state")
   (set-cursor-appearance "orange" "block" nil))
 
 (defun enter-motion-state ()
+  ;; (print "entering motion state")
   (set-cursor-appearance "blue" "block" nil))
 
 (defun enter-visual-state ()
+  ;; (print "entering visual state")
   (set-cursor-appearance "gray80" "block" nil))
 
 (defun enter-operator-state ()
+  ;; (print "entering operator state")
+
   (set-cursor-appearance "purple" "block" nil))
 ;; Add exit hooks to return to normal state
 (defun exit-insert-state ()
+  ;; (print "exiting insert state")
   (set-cursor-appearance "green" "block" nil))
 
 (defun exit-visual-state ()
+  ;; (print "exiting visual state")
   (set-cursor-appearance "green" "block" nil))
 
 (defun exit-operator-state ()
+  ;; (print "exiting operator state")
   (set-cursor-appearance "green" "block" nil))
 ;; (unless (display-graphic-p)
 ;;
