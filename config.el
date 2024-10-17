@@ -115,40 +115,65 @@
   (define-key my-backslash-prefix (kbd "o") 'better-jumper-jump-backward)         ;; \ b for buffer switch
   ;; Add other bindings as needed
 )
+;; Function to set cursor color and shape
+(defun set-cursor-appearance (color shape blink)
+       "Set the cursor COLOR, SHAPE, and BLINK state."
+       (when blink
+         (send-string-to-terminal "\033[?12h"))   ;; Enable blinking
+       (unless blink
+         (send-string-to-terminal "\033[?12l"))   ;; Disable blinking
+                ( send-string-to-terminal (format "\033]12;%s\a" color)) ;; Set cursor color
+       (send-string-to-terminal (if (string= shape "bar") "\033[5 q" "\033[2 q"))) ;; Set cursor shape
+(defun enter-normal-state ()
+  ;; (print "entering normal state")
+  (set-cursor-appearance "green" "block" t))
 
+(defun enter-insert-state ()
+  ;; (print "entering intert state")
+  (set-cursor-appearance "red" "bar" t))
+
+(defun enter-emacs-state ()
+  ;; (print "entering emacs state")
+  (set-cursor-appearance "orange" "block" nil))
+
+(defun enter-motion-state ()
+  ;; (print "entering motion state")
+  (set-cursor-appearance "blue" "block" nil))
+
+(defun enter-visual-state ()
+  ;; (print "entering visual state")
+  (set-cursor-appearance "gray80" "block" nil))
+
+(defun enter-operator-state ()
+  ;; (print "entering operator state")
+
+  (set-cursor-appearance "purple" "block" nil))
+;; Add exit hooks to return to normal state
+(defun exit-insert-state ()
+  ;; (print "exiting insert state")
+  (set-cursor-appearance "green" "block" nil))
+
+(defun exit-visual-state ()
+  ;; (print "exiting visual state")
+  (set-cursor-appearance "green" "block" nil))
+
+(defun exit-operator-state ()
+  ;; (print "exiting operator state")
+  (set-cursor-appearance "green" "block" nil))
 ;;getting transparent on terminal start up
 (defun on-after-init ()
   (unless (display-graphic-p (selected-frame))
-;; Normal mode: Set cursor color to green
-  (add-hook 'evil-normal-state-entry-hook
-            (lambda () (send-string-to-terminal "\033]12;green\a")))
-  ;; Emacs state (if applicable): Set cursor color to orange
-  (add-hook 'evil-emacs-state-entry-hook
-            (lambda () (send-string-to-terminal "\033]12;orange\a")))
- (add-hook 'evil-insert-state-entry-hook
-            (lambda ()
-              (send-string-to-terminal "\033]12;red\a")
-              (send-string-to-terminal "\033[5 q"))) ;; Change to bar cursor
-  ;; Insert mode exit (to normal mode): Set cursor color to green and block shape
-  (add-hook 'evil-insert-state-exit-hook
-            (lambda ()
-              (send-string-to-terminal "\033]12;green\a")
-              (send-string-to-terminal "\033[2 q"))) ;; Change to block cursor
-  ;; Motion mode: Set cursor color to blue
-  (add-hook 'evil-motion-state-entry-hook
-            (lambda () (send-string-to-terminal "\033]12;blue\a")))
-  ;; Visual mode: Set cursor color to gray80
-  (add-hook 'evil-visual-state-entry-hook
-            (lambda () (send-string-to-terminal "\033]12;gray80\a")))
-  ;; Visual mode exit (back to normal mode): Set cursor color to green
-  (add-hook 'evil-visual-state-exit-hook
-            (lambda () (send-string-to-terminal "\033]12;green\a")))
-  ;; Operator mode: Set cursor color to purple
-  (add-hook 'evil-operator-state-entry-hook
-            (lambda () (send-string-to-terminal "\033]12;purple\a")))
-  ;; Operator mode exit (back to normal mode): Set cursor color to green
-  (add-hook 'evil-operator-state-exit-hook
-            (lambda () (send-string-to-termiinal "\033]12;green\a")))
+    (add-hook 'evil-normal-state-entry-hook 'enter-normal-state)
+    (add-hook 'evil-insert-state-entry-hook 'enter-insert-state)
+    (add-hook 'evil-emacs-state-entry-hook 'enter-emacs-state)
+    (add-hook 'evil-motion-state-entry-hook 'enter-motion-state)
+    (add-hook 'evil-visual-state-entry-hook 'enter-visual-state)
+    (add-hook 'evil-operator-state-entry-hook 'enter-operator-state)
+
+
+    (add-hook 'evil-insert-state-exit-hook 'exit-insert-state)
+    (add-hook 'evil-visual-state-exit-hook 'exit-visual-state)
+    (add-hook 'evil-operator-state-exit-hook 'exit-operator-state)
     (set-face-background 'default "unspecified-bg" (selected-frame))))
 (add-hook 'window-setup-hook 'on-after-init)
 
