@@ -89,7 +89,7 @@
   ;; /home/mmaazahmed/.emacs.d/.local/straight/build-29.4/tree-sitter-langs/bin:
 (setq auth-sources '("~/.authinfo"))
 (add-hook 'window-setup-hook #'doom-big-font-mode)
-(setq doom-theme 'doom-nord)
+(setq doom-theme 'doom-tokyo-night)
 ;; Function to switch to doom-pine theme in visual mode
 ;; (defun my/evil-visual-mode-hook ()
 ;;   (load-theme 'doom-pine t))
