@@ -61,3 +61,4 @@
     (package! solaire-global-mode :disable t)
 (package! evil-terminal-cursor-changer)
 (package! xclip)
+(package! prisma-mode :recipe (:host github :repo "pimeys/emacs-prisma-mode" :branch "main"))
