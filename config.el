@@ -475,3 +475,4 @@
     (vterm)))
 (map! :leader
       "0" #'+toggle-vterm) ;; This binds SPC 0 to toggle vterm)
+ (setq vterm-shell (executable-find "zsh"))
