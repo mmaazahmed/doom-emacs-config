@@ -473,6 +473,7 @@
           (delete-window (get-buffer-window "*vterm*"))
         (switch-to-buffer "*vterm*"))
     (vterm)))
+(map! :n "t" (cmd! (execute-kbd-macro (kbd "SPC o t"))))
 (map! :leader
       "0" #'+toggle-vterm) ;; This binds SPC 0 to toggle vterm)
  (setq vterm-shell (executable-find "zsh"))
