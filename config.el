@@ -117,64 +117,58 @@
 )
 ;; Function to set cursor color and shape
 (defun set-cursor-appearance (color shape blink)
-       "Set the cursor COLOR, SHAPE, and BLINK state."
-       (when blink
-         (send-string-to-terminal "\033[?12h"))   ;; Enable blinking
-       (unless blink
-         (send-string-to-terminal "\033[?12l"))   ;; Disable blinking
-                ( send-string-to-terminal (format "\033]12;%s\a" color)) ;; Set cursor color
-       (send-string-to-terminal (if (string= shape "bar") "\033[5 q" "\033[2 q"))) ;; Set cursor shape
+  "Set cursor COLOR, SHAPE, and BLINK state."
+  (redisplay t) ; Force sync
+  (send-string-to-terminal "\033[?12l") ; Disable legacy DECSET
+  (send-string-to-terminal (format "\033]12;%s\a" color)) ; Color
+  (send-string-to-terminal
+   (pcase (cons shape blink)
+     (`("bar" . t)    "\033[5 q") ; Blinking bar
+     (`("bar" . nil)  "\033[6 q") ; Steady bar
+     (`("block" . t)  "\033[1 q") ; Blinking block
+     (`("block" . nil) "\033[2 q") ; Steady block
+     (_ "\033[2 q"))) ; Fallback
+  (redisplay t)) ; Force sync again
+
+;; State helpers (including motion/visual/operator/emacs)
 (defun enter-normal-state ()
-  ;; (print "entering normal state")
+  (message "Entering NORMAL")
   (set-cursor-appearance "green" "block" t))
 
 (defun enter-insert-state ()
-  ;; (print "entering intert state")
+  (message "Entering INSERT")
   (set-cursor-appearance "red" "bar" t))
 
-(defun enter-emacs-state ()
-  ;; (print "entering emacs state")
-  (set-cursor-appearance "orange" "block" nil))
-
 (defun enter-motion-state ()
-  ;; (print "entering motion state")
+  (message "Entering MOTION")
   (set-cursor-appearance "blue" "block" nil))
 
 (defun enter-visual-state ()
-  ;; (print "entering visual state")
+  (message "Entering VISUAL")
   (set-cursor-appearance "gray80" "block" nil))
 
 (defun enter-operator-state ()
-  ;; (print "entering operator state")
-
+  (message "Entering OPERATOR")
   (set-cursor-appearance "purple" "block" nil))
-;; Add exit hooks to return to normal state
-(defun exit-insert-state ()
-  ;; (print "exiting insert state")
-  (set-cursor-appearance "green" "block" nil))
 
-(defun exit-visual-state ()
-  ;; (print "exiting visual state")
-  (set-cursor-appearance "green" "block" nil))
+(defun enter-emacs-state ()
+  (message "Entering EMACS")
+  (set-cursor-appearance "orange" "block" nil))
 
-(defun exit-operator-state ()
-  ;; (print "exiting operator state")
-  (set-cursor-appearance "green" "block" nil))
-;;getting transparent on terminal start up
+;; Hooks
 (defun on-after-init ()
-  (unless (display-graphic-p (selected-frame))
+  (unless (display-graphic-p)
+    ;; Core states
     (add-hook 'evil-normal-state-entry-hook 'enter-normal-state)
     (add-hook 'evil-insert-state-entry-hook 'enter-insert-state)
-    (add-hook 'evil-emacs-state-entry-hook 'enter-emacs-state)
+    ;; Auxiliary states
     (add-hook 'evil-motion-state-entry-hook 'enter-motion-state)
     (add-hook 'evil-visual-state-entry-hook 'enter-visual-state)
     (add-hook 'evil-operator-state-entry-hook 'enter-operator-state)
-
-
-    (add-hook 'evil-insert-state-exit-hook 'exit-insert-state)
-    (add-hook 'evil-visual-state-exit-hook 'exit-visual-state)
-    (add-hook 'evil-operator-state-exit-hook 'exit-operator-state)
-    (set-face-background 'default "unspecified-bg" (selected-frame))))
+    (add-hook 'evil-emacs-state-entry-hook 'enter-emacs-state)
+    ;; Terminal init
+    (send-string-to-terminal "\033[?12l")
+    (set-face-background 'default "unspecified-bg")))
 (add-hook 'window-setup-hook 'on-after-init)
 
 ;; fx cursor in terminal
