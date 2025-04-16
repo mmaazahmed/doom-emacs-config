@@ -274,7 +274,7 @@
 ;; Enable auto-save-visited-mode for TypeScript files
 (add-hook 'typescript-mode-hook #'auto-save-visited-mode)
 (add-hook 'tsx-ts-mode-hook #'auto-save-visited-mode)
-(setq auto-save-visited-interval 1)  ;; Set interval to 0 for immediate saving
+(setq auto-save-visited-interval 0.5)  ;; Set interval to 0 for immediate saving
 (add-hook 'css-mode-hook 'emmet-mode)
 (add-hook 'html-mode-hook 'emmet-mode)
 
