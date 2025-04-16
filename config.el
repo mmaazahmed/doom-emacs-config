@@ -477,3 +477,13 @@
 (map! :leader
       "0" #'+toggle-vterm) ;; This binds SPC 0 to toggle vterm)
 ;;  (setq vterm-shell (executable-find "zsh"))
+(setq lsp-pylsp-server-command "~/.local/bin/pylsp")
+
+(after! lsp-pylsp
+  (setq lsp-pylsp-plugins-pylint-args '("--disable=C0114" "C0115" "C0116" "D103"))
+  (setq lsp-pylsp-plugins-autopep8-enabled t) ;; for autopep8
+  ) ;; Disable docstring-related warnings
+;; (after! flycheck
+;;   (setq flycheck-checker-error-threshold 1000)) ;;
+;; (after! flycheck
+;;   (setq-default flycheck-disabled-checkers '(typescript-tslint)))
