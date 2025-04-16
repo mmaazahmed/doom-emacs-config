@@ -5,7 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(doom-modeline-modal-icon nil)
  '(package-selected-packages
-   '(multi-web-mode web-mode code-review rg ripgrep lsp-treemacs ivy-avy lsp-ivy tree-sitter lsp-mode tsc typescript-mode)))
+   '(evil-terminal-cursor-changer sqlite3 lsp-ui multi-web-mode web-mode code-review rg ripgrep lsp-treemacs ivy-avy lsp-ivy tree-sitter tsc typescript-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
