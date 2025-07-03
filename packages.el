@@ -62,3 +62,5 @@
 (package! evil-terminal-cursor-changer)
 (package! xclip)
 (package! prisma-mode :recipe (:host github :repo "pimeys/emacs-prisma-mode" :branch "main"))
+(package! ultra-scroll
+  :recipe (:host github :repo "jdtsmith/ultra-scroll"))

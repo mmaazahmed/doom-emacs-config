@@ -487,3 +487,16 @@
 ;;   (setq flycheck-checker-error-threshold 1000)) ;;
 ;; (after! flycheck
 ;;   (setq-default flycheck-disabled-checkers '(typescript-tslint)))
+
+
+
+;;ultra-scroll
+(use-package ultra-scroll
+  ;:load-path "~/code/emacs/ultra-scroll" ; if you git clone'd instead of using vc
+  ;:vc (:url "https://github.com/jdtsmith/ultra-scroll") ; For Emacs>=30
+  :init
+  (setq scroll-conservatively 3 ; or whatever value you prefer, since v0.4
+        scroll-margin 0)        ; important: scroll-margin>0 not yet supported
+  :config
+  (ultra-scroll-mode 1))
+
