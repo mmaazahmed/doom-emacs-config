@@ -500,3 +500,14 @@
   :config
   (ultra-scroll-mode 1))
 
+
+;;custom macros
+
+(defalias 'local-spoof-link
+   (kmacro "p 0 f s x f / l l v e e e e e e e c l o c a l h s <backspace> o s t : 8 0 8 3 <escape> / h t t p s <return> e x e l v e e e e e e e c l o c a l h p <backspace> o s t : 3 0 0 0 <escape> 0 y y"))
+
+
+;;maps for macros
+(map! :leader
+      :desc "local spoofed link"
+      "m s" #'local-spoof-link)
