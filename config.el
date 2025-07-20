@@ -511,3 +511,36 @@
 (map! :leader
       :desc "local spoofed link"
       "m s" #'local-spoof-link)
+
+(use-package forge
+  :after magit)
+;; (package! solaire-mode :disable t)
+
+
+;; (use-package! aidermacs
+;;   :bind (("C-c a" . aidermacs-transient-menu))
+;;   :config
+;;   ;; Set API keys securely – ideally from a function or env var
+;;   (setenv "OPENROUTER_API_KEY" (my-get-openrouter-api-key))
+
+;;   :custom
+;;   (aidermacs-default-model "openrouter/deepseek-coder:reasoner") ;; <-- KEY PART
+;;   (aidermacs-default-chat-mode 'architect))
+
+
+;; (setenv "OPENROUTER_API_KEY"
+;;         (let ((auth (car (auth-source-search :host "openrouter" :require '(:secret)))))
+;;           (funcall (plist-get auth :secret))))
+(use-package! aidermacs
+  :bind (("C-c a" . aidermacs-transient-menu))
+  :config
+  ;; Load API key securely from auth-source
+  (require 'auth-source)
+  (setenv "AIDER_API_KEY"
+          (let ((auth (car (auth-source-search :host "deepseek" :require '(:secret)))))
+            (when auth
+              (funcall (plist-get auth :secret)))))
+
+  :custom
+  (aidermacs-default-model "deepseek/deepseek-reasoner")
+  (aidermacs-default-chat-mode 'architect))
