@@ -544,3 +544,24 @@
   :custom
   (aidermacs-default-model "deepseek/deepseek-reasoner")
   (aidermacs-default-chat-mode 'architect))
+(map! :leader
+      "H" (lookup-key doom-leader-map (kbd "h")))
+
+;; maps for frame navigation
+(map! :leader
+      :desc "switch to left frame" "h" #'evil-window-left)
+
+(map! :leader
+      :desc "switch to right frame" "l" #'evil-window-right)
+
+(map! :leader
+      :desc "switch to top frame" "k" #'evil-window-up)
+
+(map! :leader
+      :desc "switch to bottom frame" "j" #'evil-window-down)
+
+(map! :n "s-p" #'+treemacs/toggle)
+
+(after! treemacs
+  (evil-define-key 'treemacs treemacs-mode-map (kbd "s-p") #'+treemacs/toggle)
+)
